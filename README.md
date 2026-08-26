@@ -24,17 +24,19 @@ npm run build     # cria a pasta dist/
 npm run preview   # espia a versão final antes de publicar
 ```
 
-## Publicar (Vercel ou Netlify)
+## O app já está no ar
 
-O projeto é 100% estático. Nos dois serviços dá para conectar o repositório e
-aceitar o que eles sugerirem — ou preencher assim:
+**https://davimec201-cmd.github.io/Leti/**
 
-| campo               | valor           |
-| ------------------- | --------------- |
-| Build command       | `npm run build` |
-| Output directory    | `dist`          |
+Publicação automática: a cada push nesta branch, o workflow
+`.github/workflows/publicar.yml` roda o build e joga o resultado na branch
+`gh-pages`, que é o que o GitHub Pages serve. Ou seja — mudou um texto em
+`src/config/content.js`, deu commit, em cerca de um minuto o link já está
+atualizado. A branch `gh-pages` é gerada pelo build: não edite nada lá à mão.
 
-Também dá para simplesmente arrastar a pasta `dist/` no Netlify Drop.
+Se um dia quiser levar para outro lugar (Vercel, Netlify), o projeto é 100%
+estático: build `npm run build`, pasta de saída `dist`. Nesse caso, atualize as
+duas linhas de `og:url` e `og:image` no `index.html` com o endereço novo.
 
 ---
 
@@ -73,9 +75,10 @@ nunca estica nem achata. Se quiser uma imagem diferente por momento, preencha
 
 ### Prévia do link no WhatsApp
 
-`public/og.jpg` é a imagem que aparece quando o link é enviado. Para regerar,
-basta trocar o arquivo. Se a prévia não aparecer, edite o `index.html` e troque
-`./og.jpg` pela URL completa do site publicado.
+`public/og.jpg` é a imagem que aparece quando o link é enviado no WhatsApp.
+Para trocar, basta substituir o arquivo (1200x630). O endereço completo dela já
+está no `index.html`, em `og:image` — o WhatsApp precisa da URL completa, então
+só mexa nessa linha se o site mudar de endereço.
 
 ---
 

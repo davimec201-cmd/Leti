@@ -1,5 +1,8 @@
-# Publica o app no GitHub Pages a cada push nesta branch.
-# Endereço final: https://davimec201-cmd.github.io/Leti/
+# Constroi o app e publica na branch gh-pages, que o GitHub Pages serve em:
+#   https://davimec201-cmd.github.io/Leti/
+#
+# Roda sozinho a cada push nesta branch — entao, para mudar um texto, basta
+# editar src/config/content.js, dar commit e esperar ~1 minuto.
 name: Publicar no GitHub Pages
 
 on:
@@ -8,23 +11,17 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
-  group: pages
+  group: publicar
   cancel-in-progress: true
 
 jobs:
-  construir:
+  publicar:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       - uses: actions/setup-node@v4
         with:
@@ -34,16 +31,16 @@ jobs:
       - run: npm ci
       - run: npm run build
 
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
-
-  publicar:
-    needs: construir
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
-    steps:
-      - id: deploy
-        uses: actions/deploy-pages@v4
+      - name: Mandar o build para a branch gh-pages
+        run: |
+          cp -r dist /tmp/site
+          touch /tmp/site/.nojekyll
+          cd /tmp/site
+          git init -q -b gh-pages
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Site publicado (build de ${GITHUB_SHA::7})"
+          git push -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" gh-pages
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
