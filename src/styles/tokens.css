@@ -1,0 +1,53 @@
+/* ============================================================================
+ *  TOKENS — a paleta e as medidas do app inteiro.
+ *  Mudou uma cor aqui, mudou em todas as telas.
+ * ========================================================================== */
+:root {
+  /* Fundos quentinhos */
+  --creme:        #FDF7F2;
+  --creme-2:      #F8EFE7;
+  --papel:        #FFFDFB;
+  --branco:       #FFFFFF;
+
+  /* Tinta (textos) */
+  --tinta:        #4B4340;
+  --tinta-2:      #766A65;
+  --tinta-3:      #8A7C75;
+
+  /* Rosa pastel — so' detalhes, nunca gritando */
+  --rosa:         #E7B3B6;
+  --rosa-claro:   #FBEDEB;
+  --rosa-linha:   #F1D8D6;
+  --rosa-texto:   #96585F;
+  --rosa-botao-a: #A87078;
+  --rosa-botao-b: #9C6068;
+
+  /* Cinza suave e a linha dos cartoes */
+  --cinza:        #B7B2B3;
+  --linha:        #F0E4DB;
+
+  /* creme da propria arte do Luke — a moldura usa isso para nao ter emenda */
+  --luke-fundo:   #FEE7BF;
+
+  /* Sombras muito sutis, sempre quentes */
+  --sombra-1: 0 1px 2px rgba(124, 98, 86, .04), 0 6px 16px rgba(124, 98, 86, .055);
+  --sombra-2: 0 2px 5px rgba(124, 98, 86, .05), 0 16px 34px rgba(124, 98, 86, .08);
+  --sombra-botao: 0 6px 16px rgba(140, 86, 92, .22);
+
+  /* Cantos bem arredondados */
+  --r-g: 30px;
+  --r-m: 22px;
+  --r-p: 15px;
+  --r-pill: 999px;
+
+  /* Tipografia */
+  --f-titulo: 'Quicksand Variable', 'Quicksand', ui-rounded, 'SF Pro Rounded',
+              system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --f-texto:  'Nunito Variable', 'Nunito', ui-rounded, 'SF Pro Rounded',
+              system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --f-mao:    'Caveat Variable', 'Caveat', 'Segoe Script', cursive;
+
+  /* Ritmo das animacoes */
+  --suave: cubic-bezier(.16, .84, .44, 1);
+  --t-tela: 520ms;
+}

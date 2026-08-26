@@ -1,0 +1,128 @@
+/* ============================================================================
+ *  BASE — reset gentil, fundo e estrutura da pagina.
+ * ========================================================================== */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body, #root { height: 100%; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  color: var(--tinta);
+  font-family: var(--f-texto);
+  font-size: 16px;
+  line-height: 1.6;
+  font-weight: 500;
+  letter-spacing: .002em;
+  background-color: var(--creme);
+  background-image:
+    radial-gradient(115% 70% at 50% -12%, #FFFCF9 0%, rgba(255, 252, 249, 0) 62%),
+    radial-gradient(75% 55% at 102% 2%,  #FBEDEB 0%, rgba(251, 237, 235, 0) 58%),
+    radial-gradient(70% 55% at -6% 100%, #F6EDE4 0%, rgba(246, 237, 228, 0) 62%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+}
+
+/* Textura discreta de patinhas no fundo (bem no limite do perceptivel) */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: .032;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Cg fill='%23B08A86'%3E%3Cg transform='translate(28 34) rotate(-14) scale(.85)'%3E%3Cellipse cx='12' cy='16' rx='6.1' ry='5'/%3E%3Cellipse cx='4.9' cy='9.6' rx='2.5' ry='3'/%3E%3Cellipse cx='9.8' cy='6.2' rx='2.6' ry='3.2'/%3E%3Cellipse cx='15.2' cy='6.2' rx='2.6' ry='3.2'/%3E%3Cellipse cx='19.6' cy='9.8' rx='2.5' ry='3'/%3E%3C/g%3E%3Cg transform='translate(101 106) rotate(12) scale(.7)'%3E%3Cellipse cx='12' cy='16' rx='6.1' ry='5'/%3E%3Cellipse cx='4.9' cy='9.6' rx='2.5' ry='3'/%3E%3Cellipse cx='9.8' cy='6.2' rx='2.6' ry='3.2'/%3E%3Cellipse cx='15.2' cy='6.2' rx='2.6' ry='3.2'/%3E%3Cellipse cx='19.6' cy='9.8' rx='2.5' ry='3'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  background-size: 190px 190px;
+}
+
+h1, h2, h3, p, ul, ol, figure, blockquote { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+
+button {
+  font: inherit;
+  color: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+:focus-visible {
+  outline: 2px solid var(--rosa-texto);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+::selection { background: var(--rosa-claro); color: var(--rosa-texto); }
+
+.so-leitor {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---- Estrutura --------------------------------------------------------- */
+.palco {
+  position: relative;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding:
+    calc(env(safe-area-inset-top) + 26px)
+    clamp(18px, 5vw, 24px)
+    calc(env(safe-area-inset-bottom) + 30px);
+}
+
+/* na tela final sobra um cantinho embaixo, so' para a patinha secreta */
+.palco--final {
+  padding-bottom: calc(env(safe-area-inset-bottom) + 86px);
+}
+
+/* fallback para navegadores sem dvh */
+@supports not (min-height: 100dvh) {
+  .palco { min-height: 100vh; }
+}
+
+.palco__conteudo {
+  width: 100%;
+  max-width: 430px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Trilha de progresso: cinco pontinhos bem discretos */
+.trilha {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 22px;
+  height: 8px;
+  transition: opacity .5s ease;
+}
+.trilha[data-oculta='sim'] { opacity: 0; pointer-events: none; }
+
+.trilha__ponto {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--rosa-linha);
+  transition: all .45s var(--suave);
+}
+.trilha__ponto[data-estado='passou'] { background: var(--rosa); }
+.trilha__ponto[data-estado='agora'] {
+  width: 20px;
+  border-radius: 999px;
+  background: var(--rosa-botao-a);
+}
